@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -15,7 +16,8 @@ public final class Lab2 {
 
         System.out.println(correct ? "валидный паттерн" : "инвалидный паттерн");
 
-        main(args);
+        if (args[0] != null && Objects.equals(args[0], "-r"))
+            main(args);
     }
 
     private static String getNameOfGroup(){
