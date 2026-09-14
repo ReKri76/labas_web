@@ -8,19 +8,19 @@ public final class Lab2 {
     private static final Pattern REGEX_COMPILE = Pattern.compile(REGEX);
 
     public static void main(String[] args) {
-        System.out.println("=============================================================");
         System.out.println("Чамкин Антон 25ВП3; проверить валидность названия группы ПГУ.");
 
         Scanner scanner = new Scanner(System.in);
-        boolean repeat;
+        var repeat = args.length > 0 && Objects.equals(args[0], "-r");
 
         do {
+            System.out.println("=============================================================");
             String inputString = getNameOfGroup(scanner);
+            if (inputString.equals("exit"))
+                return;
             boolean correct = checkGroup(inputString);
 
             System.out.println(correct ? "валидный паттерн" : "инвалидный паттерн");
-
-            repeat = args.length > 0 && Objects.equals(args[0], "-r");
         } while (repeat);
     }
 
