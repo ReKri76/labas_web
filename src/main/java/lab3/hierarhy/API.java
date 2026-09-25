@@ -3,9 +3,6 @@ package lab3.hierarhy;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.Getter;
-
-@Getter 
 public class API {
 	private List<Computer> computers;
     private double averagePrice = 0;

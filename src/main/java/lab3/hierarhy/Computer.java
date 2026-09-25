@@ -1,8 +1,5 @@
 package lab3.hierarhy;
 
-import lombok.Getter;
-
-@Getter 
 public abstract class Computer implements Comparable<Computer> {
     protected final double price;
     protected final String name;
@@ -16,6 +13,26 @@ public abstract class Computer implements Comparable<Computer> {
         this.name = name;
         this.cpu = cpu;
         this.vendor = vendor;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCpu() {
+        return cpu;
+    }
+
+    public String getVendor() {
+        return vendor;
+    }
+
+    public int getCountInWarehouse() {
+        return countInWarehouse;
     }
 
     /**

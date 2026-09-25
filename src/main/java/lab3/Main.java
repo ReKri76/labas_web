@@ -18,24 +18,25 @@ public class Main {
 			System.out.print("Введите команду : ");
 			var command = scanner.nextLine().trim();
 
-			if (command.equals("vw")) {
+			if (command.equals("vw"))
 				vw();
-			} else if (command.equals("avrg")) {
+			else if (command.equals("avrg"))
 				avrg();
-			} else if (command.equals("avrg -higher")) {
+			else if (command.equals("avrg -higher")) 
 				avrgHigher();
-			} else if (command.equals("na")) {
+			else if (command.equals("na")) 
 				na();
-			} else if (command.equals("srtd")) {
+			else if (command.equals("srtd")) 
 				srtd();
-			} else if (command.startsWith("find ")) {
+			else if (command.startsWith("find ")) {
 				var name = command.substring(5);
 				find(name, scanner);
-			} else if (command.equals("exit")) {
-				break;
-			} else {
-				help();
 			}
+			else if (command.equals("exit")) 
+				break;
+			else 
+				help();
+			
 		}
 	}
 
@@ -100,14 +101,13 @@ public class Main {
 			return;
 		
 		try{
-			if (input.length() == 2 && input.charAt(0) == '-'){
-				var value = Integer.parseInt(input.substring(1));
+
+			var value = Integer.parseInt(input.substring(1));
+
+			if (input.charAt(0) == '-')
 				element.buy(value);
-			}else if(input.length() == 1){
-				var value = Integer.parseInt(input);
+			else 
 				element.bring(value);
-			} else 
-				throw new RuntimeException();
 		} catch (Exception e){
 			System.out.println("Неверный формат ввода");
 			return;
