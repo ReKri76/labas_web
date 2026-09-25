@@ -13,7 +13,7 @@ public abstract class Laptop extends Computer {
 
     public void openLid() {
         isLidOpen = true;
-        System.out.println("Крышка открыта, экран " + screenSize + "\" активирован.");
+            System.out.println("Крышка открыта, экран " + screenSize + "\" активирован.");
     }
 
     public void closeLid() {
@@ -24,7 +24,7 @@ public abstract class Laptop extends Computer {
     public void chargeBattery(int minutes) {
         if (isPluggedIn) {
             batteryLevel = Math.min(100, batteryLevel + (minutes / 2));
-            System.out.println("Зарядка... Текущий уровень: " + batteryLevel + "%");
+            System.out.println("Зарядка завершена. Текущий уровень: " + batteryLevel + "%");
         }
     }
 }

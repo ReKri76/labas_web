@@ -42,7 +42,7 @@ public abstract class Computer implements Comparable<Computer> {
     */
     public void buy(int count){
         if (count>countInWarehouse || count<1)
-            throw new RuntimeException("on warehouse less this models than u want to buy;");
+            throw new IllegalArgumentException("Недостаточно оборудования на складе");
 
         countInWarehouse-=count;
     }
@@ -54,7 +54,7 @@ public abstract class Computer implements Comparable<Computer> {
     */
     public void bring(int count){
         if (count<1)
-            throw new RuntimeException("count of new computers must be 1 or more");
+            throw new IllegalArgumentException("Количество должно быть положительным");
 
         countInWarehouse+=count;
     }

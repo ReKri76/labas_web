@@ -43,14 +43,14 @@ public class API {
 
     private static List<Computer> defaultListOfComputers(){
         return List.of(
-            new Desktop(1, "K.Y.S", "intel core i7", "OOO Roga i Kopita"),
-            new MacBook(2, "air 5", "intel core 2 duo", "Apple"),
+            new Desktop(1, "Office Desktop", "Intel Core i7", "Dell"),
+            new MacBook(2, "MacBook Air 13", "Apple M2", "Apple"),
             new AcerAspire(3, "Aspire 5", "AMD Ryzen 5", "Acer"),
             new Desktop(4, "OptiPlex", "intel core i5", "Dell"),
-            new MacBook(5, "Pro 14", "Apple M3", "Apple"),
+            new MacBook(5, "MacBook Pro 14", "Apple M3", "Apple"),
             new AcerAspire(6, "Aspire 7", "intel core i7", "Acer"),
             new Desktop(7, "Pavilion", "AMD Ryzen 7", "HP"),
-            new MacBook(8, "Pro 16", "Apple M3 Pro", "Apple"),
+            new MacBook(8, "MacBook Pro 16", "Apple M3 Pro", "Apple"),
             new AcerAspire(9, "Swift 3", "intel core i5", "Acer"),
             new Desktop(10, "ThinkCentre", "intel core i5", "Lenovo")
         );

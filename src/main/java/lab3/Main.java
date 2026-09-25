@@ -6,11 +6,11 @@ import lab3.hierarhy.API;
 
 public class Main {	
 
-	static private API api = API.defaultApi();
+	private static final API api = API.defaultApi();
 
 	public static void main(String[] args) {
 		
-		System.out.println("Чамкин Антон; 25ВП3; Лабараторная 3, Вариант 15;");
+		System.out.println("Чамкин Антон; 25ВП3; Лабораторная работа 3, вариант 15");
 
 		var scanner = new Scanner(System.in);
 
@@ -44,12 +44,12 @@ public class Main {
 		System.out.println("""
 			Список поддерживаемых команд:
 
-				vw: показать все существующие на данный момент компьюетры, и данне о них
-				avrg: вывести средную стоимость компьютеров
+				vw: показать все компьютеры и информацию о них
+				avrg: вывести среднюю стоимость компьютеров
 				avrg -higher: вывести список оборудования, стоимость которого выше средней
-				na: вывести оборудование, поставка, котрого на данный момент невозможна
-				srtd: отсортировать текущий список оборудования в алфавитном порядке названия
-				find <name>: найти оборудование с названием <name> и начать его редактирование
+				na: вывести оборудование, поставка которого в данный момент невозможна
+				srtd: отсортировать список оборудования по названию
+				find <name>: найти оборудование с названием <name> и изменить его количество
 				exit: выйти из программы
                                        """
 									);
@@ -79,12 +79,12 @@ public class Main {
 	static private void find(String name, Scanner scanner) {
 		var elements = api.findByName(name);
 
-		if (elements.size() == 0) {
+		if (elements.isEmpty()) {
 			System.out.println("Компьютер с таким названием не найден");
 			return;
 		}
 
-		if (elements.size()>1){
+		if (elements.size() > 1) {
 			System.out.println("Существует несколько компьютеров с таким названием. Определить нужный невозможно");
 			return;
 		}
@@ -93,22 +93,21 @@ public class Main {
 
 		System.out.println(element.toString());
 
-		System.err.println("Вы можете изменить количество этого оборудования на складе. Нажмите энтер для пропуска.");
+		System.out.println("Введите изменение количества на складе. Нажмите Enter для отмены.");
 
 		var input = scanner.nextLine().trim();
 
 		if (input.equals(""))
 			return;
 		
-		try{
+		try {
+			var value = Integer.parseInt(input);
 
-			var value = Integer.parseInt(input.substring(1));
-
-			if (input.charAt(0) == '-')
-				element.buy(value);
-			else 
+			if (value < 0)
+				element.buy(-value);
+			else
 				element.bring(value);
-		} catch (Exception e){
+		} catch (RuntimeException e) {
 			System.out.println("Неверный формат ввода");
 			return;
 		}
