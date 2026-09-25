@@ -21,4 +21,9 @@ public class Desktop extends Computer {
                 + (hasWaterCooling ? "установлено" : "не установлено")
                 + ". ИБП: " + (isUpsConnected ? "подключён" : "не подключён") + ".");
     }
+
+    public void connectUps() {
+        isUpsConnected = true;
+        System.out.println("Источник бесперебойного питания подключён.");
+    }
 }
