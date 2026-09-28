@@ -49,14 +49,17 @@ public class Main {
 				avrg -higher: вывести список оборудования, стоимость которого выше средней
 				na: вывести оборудование, поставка которого в данный момент невозможна
 				srtd: отсортировать список оборудования по названию
-				find <name>: найти оборудование с названием <name> и изменить его количество
+				find <name>: найти оборудование с названием <name> и изменить его количество или удалить со склада
 				exit: выйти из программы
                                        """
 									);
 	}
 
 	static private void vw() {
-		System.out.println(api.getComputers().toString());
+		System.out.println();
+		for (var i : api.getComputers())
+			System.out.println(i.toString());
+		System.out.println();
 	}
 
 	static private void avrg() {
@@ -93,12 +96,18 @@ public class Main {
 
 		System.out.println(element.toString());
 
-		System.out.println("Введите изменение количества на складе. Нажмите Enter для отмены.");
+		System.out.println("Введите изменение количества на складе. Введите delete, чтобы удалить запись об этом компьютере. Нажмите Enter для отмены.");
 
 		var input = scanner.nextLine().trim();
 
 		if (input.equals(""))
 			return;
+
+		if (input.equals("delete")){
+			api.deleteByName(name);
+			System.out.println("Успех");
+			return;
+		}
 		
 		try {
 			var value = Integer.parseInt(input);

@@ -83,6 +83,6 @@ public abstract class Computer implements Comparable<Computer> {
 
     @Override 
     public String toString(){
-    return "price: " + price + "; name: " + name + "; cpu: " + cpu + "; vendor: " + vendor + "; countInWarehouse: " + countInWarehouse + ";"; 
+        return name + ":( " + "цена: " + price + "; процессор: " + cpu + "; поставщик: " + vendor + "; количество на складе: " + countInWarehouse + ";";
     }
 }

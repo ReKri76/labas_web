@@ -24,11 +24,19 @@ public final class Lab2 {
         } while (repeat);
     }
 
+    /**
+     * возврат введенной пользователем группы
+     * @param scanner ссылка на сканер
+     * @return строка, введенаня с консоли
+     */
     private static String getNameOfGroup(Scanner scanner) {
         System.out.println("введите название группы:");
         return scanner.nextLine().trim();
     }
 
+    /// проверка на валидность группы
+    /// @param group строка для, которой нужно сделать проверку на соответсвие
+    /// @return является ли эта строка валидным названием для группы ПГУ
     private static boolean checkGroup(String group) {
         return REGEX_COMPILE.matcher(group).matches();
     }
