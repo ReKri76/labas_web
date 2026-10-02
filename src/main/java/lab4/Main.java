@@ -29,6 +29,7 @@ public class Main {
         } 
         catch (IOException e) {
                 System.err.println("Ошибка чтения файла: " + e.getMessage());
+                return;
         }   
 
         var text = textBuilder.toString();
