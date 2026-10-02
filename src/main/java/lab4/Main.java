@@ -21,10 +21,11 @@ public class Main {
         final var textBuilder = new StringBuilder();
         
         try {
-        final List<String> lines = Files.readAllLines(Path.of("src/main/java/lab4/TEXT"), StandardCharsets.UTF_8);
+        List<String> lines = Files.readAllLines(Path.of("src/main/java/lab4/TEXT"), StandardCharsets.UTF_8);
 
-        for (String line : lines) 
-            textBuilder.append(line).append(" ");
+        final var iterator = new CustomIterator(lines);
+        while (iterator.hasNext())
+            textBuilder.append(iterator.next()).append(" ");
 
         } 
         catch (IOException e) {

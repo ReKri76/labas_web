@@ -34,3 +34,5 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+./src/main/java/lab4/RESULT.json
