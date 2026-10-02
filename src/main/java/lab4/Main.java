@@ -18,10 +18,10 @@ public class Main {
         System.out.println("Чамкин Антон; 25ВП3; Лабараторная работа №4; Вариант 15");
         System.out.println("Программа подсчета частоты слов и словосочетаний в тексте.");
 
-        var textBuilder = new StringBuilder();
+        final var textBuilder = new StringBuilder();
         
         try {
-        List<String> lines = Files.readAllLines(Path.of("src/main/java/lab4/TEXT"), StandardCharsets.UTF_8);
+        final List<String> lines = Files.readAllLines(Path.of("src/main/java/lab4/TEXT"), StandardCharsets.UTF_8);
 
         for (String line : lines) 
             textBuilder.append(line).append(" ");
@@ -47,10 +47,11 @@ public class Main {
             final var words = sentence.trim().split(" ");
             
             for (var word : words){
-                var currentSentence = new StringBuilder();
+                final var currentSentence = new StringBuilder();
                 currentSentence.append(word);
-                for (var nextWord : words){
-                    var result = currentSentence.append(" ").append(nextWord).toString().trim();
+                for (var i = 1 ; i < words.length; i++){
+                    final var nextWord = words[i];
+                    final var result = currentSentence.append(" ").append(nextWord).toString().trim();
                     frequency.put(result, frequency.getOrDefault(result, 0) + 1);
                 }
             }
@@ -58,8 +59,8 @@ public class Main {
 
         frequency.remove("");
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json = gson.toJson(frequency);
+        final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        final String json = gson.toJson(frequency);
 
         Files.writeString(Path.of("src/main/java/lab4/RESULT.json"),json);
 
