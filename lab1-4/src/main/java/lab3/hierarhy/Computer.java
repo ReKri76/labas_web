@@ -1,0 +1,88 @@
+package lab3.hierarhy;
+
+public abstract class Computer implements Comparable<Computer> {
+    protected final double price;
+    protected final String name;
+    protected final String cpu;
+    protected final String vendor;
+
+    protected int countInWarehouse = 0;
+
+    protected Computer(double price, String name, String cpu, String vendor) {
+        this.price = price;
+        this.name = name;
+        this.cpu = cpu;
+        this.vendor = vendor;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCpu() {
+        return cpu;
+    }
+
+    public String getVendor() {
+        return vendor;
+    }
+
+    public int getCountInWarehouse() {
+        return countInWarehouse;
+    }
+
+    /**
+     * Покупка компьютеров со склада
+     * @param count количество моделей для покупки
+     * 
+    */
+    public void buy(int count){
+        if (count>countInWarehouse || count<1)
+            throw new IllegalArgumentException("Недостаточно оборудования на складе");
+
+        countInWarehouse-=count;
+    }
+
+    /**
+     * Привоз на склад компьютеров
+     * @param count новых моделей
+     * 
+    */
+    public void bring(int count){
+        if (count<1)
+            throw new IllegalArgumentException("Количество должно быть положительным");
+
+        countInWarehouse+=count;
+    }
+
+    @Override
+    public int compareTo(Computer other) {
+        var otherName = other.getName().toLowerCase();
+        var thisName = name.toLowerCase();
+        
+        for (var i = 0; i<otherName.length() && i < thisName.length(); i++){
+            if (otherName.charAt(i) == thisName.charAt(i))
+                continue;
+            
+            if (thisName.charAt(i) > otherName.charAt(i))
+                return 1;
+            else 
+                return -1;
+        }
+
+        if (otherName.length()>thisName.length())
+            return -1;
+        else if (otherName.length()<thisName.length())
+            return 1;
+        else return 0;
+    }
+
+    @Override 
+    public String toString(){
+        return name + ":( " + "цена: " + price + "; процессор: " + cpu + "; поставщик: " + vendor + "; количество на складе: " + countInWarehouse + ";";
+    }
+}
