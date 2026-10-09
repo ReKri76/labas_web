@@ -1,0 +1,43 @@
+import java.util.Objects;
+import java.util.Scanner;
+import java.util.regex.Pattern;
+
+public final class Lab2 {
+
+    private static final String REGEX = "^2[0-6][А-Я]{2}[1-9]$";
+    private static final Pattern REGEX_COMPILE = Pattern.compile(REGEX);
+
+    public static void main(String[] args) {
+        System.out.println("Чамкин Антон 25ВП3; проверить валидность названия группы ПГУ.");
+
+        Scanner scanner = new Scanner(System.in);
+        var repeat = args.length > 0 && Objects.equals(args[0], "-r");
+
+        do {
+            System.out.println("=============================================================");
+            String inputString = getNameOfGroup(scanner);
+            if (inputString.equals("exit"))
+                return;
+            boolean correct = checkGroup(inputString);
+
+            System.out.println(correct ? "валидный паттерн" : "инвалидный паттерн");
+        } while (repeat);
+    }
+
+    /**
+     * возврат введенной пользователем группы
+     * @param scanner ссылка на сканер
+     * @return строка, введенаня с консоли
+     */
+    private static String getNameOfGroup(Scanner scanner) {
+        System.out.println("введите название группы:");
+        return scanner.nextLine().trim();
+    }
+
+    /// проверка на валидность группы
+    /// @param group строка для, которой нужно сделать проверку на соответсвие
+    /// @return является ли эта строка валидным названием для группы ПГУ
+    private static boolean checkGroup(String group) {
+        return REGEX_COMPILE.matcher(group).matches();
+    }
+}
