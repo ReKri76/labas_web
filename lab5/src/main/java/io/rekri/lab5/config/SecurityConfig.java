@@ -19,12 +19,12 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return
                 http
                         .authorizeHttpRequests(auth -> auth
                                 .requestMatchers("/", "/login", "/register", "/css/**", "/js/**", "/error").permitAll()
-                                .anyRequest().denyAll()
+                                .anyRequest().authenticated()
                         )
                         .formLogin(form -> form
                                 .loginPage("/login")
@@ -59,7 +59,7 @@ public class SecurityConfig {
         return username -> users.findByName(username)
                 .map(user -> User.withUsername(user.getName())
                         .password(user.getPassword())
-                        .roles(user.getRole())
+                        .authorities(user.getRole())
                         .build())
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }
