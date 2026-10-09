@@ -1,4 +1,4 @@
-package io.rekri.lab5.entyties;
+package io.rekri.lab5.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
