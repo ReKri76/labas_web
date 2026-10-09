@@ -1,14 +1,15 @@
 package io.rekri.lab5.DTO;
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class Notice {
-    @Nonnull
-    @NotBlank
+    @Nullable
     private String header;
     @Nonnull
-    @NotBlank
     private String content;
 }
