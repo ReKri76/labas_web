@@ -30,6 +30,7 @@ public class NoticesControllers {
     @PostMapping("/create-notice")
     public String createNotice(@RequestPart("notice") Notice textToCreate,
                                @RequestPart(value = "image", required = false) @Nullable MultipartFile file) throws IOException {
+
         final var picture = file!=null ? new Picture(file) : null;
         service.createNotice(textToCreate, picture);
 

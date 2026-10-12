@@ -9,6 +9,7 @@ import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -25,14 +26,14 @@ public class NoticesService {
         }).toList();
     }
 
-    public void createNotice(Notice notice, @Nullable Picture picture){
+    public void createNotice(Notice notice, @Nullable Picture picture) throws IOException {
         if (picture!=null)
-            imagesService.save(picture.getName(), picture.getInputStream());
+            imagesService.save(picture);
 
         noticesRepository.save(new Notices.Builder()
                 .content(notice.getContent())
                 .head(notice.getHeader())
-                .picture(picture.getName()) // TODO: имя может можно будет генернировать лучше я хз
+                .picture(picture != null ? picture.getName() : "")
                 .author(usersRepository.findByName(notice.getAuthor()).orElseThrow())
                 .build());
     }
