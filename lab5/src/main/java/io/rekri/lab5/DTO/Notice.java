@@ -12,4 +12,6 @@ public class Notice {
     private String header;
     @Nonnull
     private String content;
+    @Nonnull
+    private String author;
 }

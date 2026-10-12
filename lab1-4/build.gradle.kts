@@ -1,23 +1,15 @@
 plugins {
-    id("java")
+    id("base")
 }
 
 group = "io.rekri"
 version = "1.0-SNAPSHOT"
 
-repositories {
-    mavenCentral()
+allprojects {
+    group = rootProject.group
+    version = rootProject.version
+
+    repositories {
+        mavenCentral()
+    }
 }
-
-dependencies {
-    testImplementation(platform("org.junit:junit-bom:6.0.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
-    implementation("com.google.code.gson:gson:2.14.0")
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
-

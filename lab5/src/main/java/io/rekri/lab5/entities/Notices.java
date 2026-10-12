@@ -1,6 +1,9 @@
 package io.rekri.lab5.entities;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
@@ -30,8 +33,44 @@ public class Notices {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="author")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Integer author;
+    private Users author;
 
     @Column(name = "createdAt", nullable = false)
     private String date = Instant.now().toString();
+
+    public static class Builder{
+        private String head;
+        private String content;
+        private Users author;
+        private String picture;
+
+        public Builder head(final String head){
+            this.head = head;
+            return this;
+        }
+
+        public Builder content(final String content){
+            this.content = content;
+            return this;
+        }
+
+        public Builder author(final Users author){
+            this.author = author;
+            return this;
+        }
+
+        public Builder picture(final String picture){
+            this.picture = picture;
+            return this;
+        }
+
+        public Notices build(){
+            final var notices = new Notices();
+            notices.head = this.head;
+            notices.author = this.author;
+            notices.content = this.content;
+            notices.picture = this.picture;
+            return notices;
+        }
+    }
 }
