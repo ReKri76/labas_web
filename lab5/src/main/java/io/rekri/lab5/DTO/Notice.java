@@ -4,14 +4,13 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@AllArgsConstructor
+@SuperBuilder
 public class Notice {
     @Nullable
     private String header;
     @Nonnull
     private String content;
-    @Nonnull
-    private String author;
 }

@@ -22,12 +22,14 @@ public class Notices {
     private Integer id;
 
     @Column(name = "head")
+    @Nullable
     private String head;
 
     @Column(name = "content", nullable = false)
     private String content;
 
     @Column(name = "picture")
+    @Nullable
     private String picture;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,7 +38,7 @@ public class Notices {
     private Users author;
 
     @Column(name = "createdAt", nullable = false)
-    private String date = Instant.now().toString();
+    private final String date = Instant.now().toString();
 
     public static class Builder{
         private String head;

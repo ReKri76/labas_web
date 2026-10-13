@@ -1,6 +1,7 @@
 package io.rekri.lab5.service;
 
 import io.rekri.lab5.DTO.Notice;
+import io.rekri.lab5.DTO.NoticeResponse;
 import io.rekri.lab5.DTO.Picture;
 import io.rekri.lab5.entities.Notices;
 import io.rekri.lab5.repository.NoticesRepository;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @Service
@@ -20,21 +22,38 @@ public class NoticesService {
     final private UsersRepository usersRepository;
     final private ImagesService imagesService;
 
-    public List<Notice> getAllNotices(){
-        return noticesRepository.findAll().stream().map(notice -> {
-            return new Notice(notice.getHead(), notice.getContent(), notice.getAuthor().getName());
-        }).toList();
+    public List<NoticeResponse> getAllNotices() {
+        return noticesRepository.findAll().stream()
+                .<NoticeResponse>map(notice -> NoticeResponse.builder()
+                        .id(notice.getId())
+                        .picture(notice.getPicture())
+                        .header(notice.getHead())
+                        .content(notice.getContent())
+                        .author(notice.getAuthor().getName())
+                        .build())
+                .toList();
     }
 
-    public void createNotice(Notice notice, @Nullable Picture picture) throws IOException {
+    public void createNotice(final Notice notice, @Nullable final Picture picture, final String author)
+            throws IOException {
         if (picture!=null)
             imagesService.save(picture);
 
         noticesRepository.save(new Notices.Builder()
                 .content(notice.getContent())
                 .head(notice.getHeader())
-                .picture(picture != null ? picture.getName() : "")
-                .author(usersRepository.findByName(notice.getAuthor()).orElseThrow())
+                .picture(picture != null ? picture.getName() : null)
+                .author(usersRepository.findByName(author).orElseThrow())
                 .build());
+    }
+
+    public void deleteNotice(final Integer id){
+        final var notice = noticesRepository.findById(id).orElseThrow();
+        imagesService.delete(notice.getPicture());
+        noticesRepository.delete(notice);
+    }
+
+    public InputStream getPictureByName(final String name) {
+        return imagesService.get(name);
     }
 }
