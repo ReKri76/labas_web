@@ -1,7 +1,6 @@
 package io.rekri.lab5.config;
 
-import io.rekri.lab5.config.security.AdminAuthorizationManager;
-import io.rekri.lab5.config.security.ModerAuthorizationManager;
+import io.rekri.lab5.config.security.Roles;
 import io.rekri.lab5.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -21,9 +20,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    final private ModerAuthorizationManager moderAuthorizationManager;
-    final private AdminAuthorizationManager adminAuthorizationManager;
-
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return
@@ -32,7 +28,9 @@ public class SecurityConfig {
                                 .requestMatchers("/", "/login", "/register", "/css/**", "/js/**", "/error").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/").permitAll()
                                 .requestMatchers(HttpMethod.POST).authenticated()
-                                .requestMatchers(HttpMethod.DELETE).access(moderAuthorizationManager)
+                                .requestMatchers(HttpMethod.DELETE).hasAnyAuthority(Roles.ROLE_ADMIN.toString(),
+                                        Roles.ROLE_MODERATOR.toString())
+                                .requestMatchers("/users/**").hasAuthority(Roles.ROLE_ADMIN.toString())
                                 .anyRequest().denyAll()
                         )
                         .formLogin(form -> form
@@ -64,7 +62,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    UserDetailsService userDetailsService(UsersRepository users) {
+    UserDetailsService userDetailsService(final UsersRepository users) {
         return username -> users.findByName(username)
                 .map(user -> User.withUsername(user.getName())
                         .password(user.getPassword())
