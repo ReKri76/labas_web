@@ -5,24 +5,19 @@ import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.UUID;
+import java.util.Base64;
 
 @Data
 public class Picture {
 
-    public Picture(@Nonnull MultipartFile file) throws IOException {
-        this.setInputStream(file.getInputStream());
-        this.setName(UUID.randomUUID() + "_" + System.currentTimeMillis());
-        this.setSize(file.getSize());
-        this.setContentType(file.getContentType() != null ? file.getContentType() : "application/octet-stream");
+    public static final Long MAX_IMAGE_SIZE = (1024L * 1024L) * 2 / 3 - 1;
+
+    public Picture(@Nonnull MultipartFile file) throws IOException, IllegalArgumentException{
+        if (file.isEmpty() || file.getSize() > MAX_IMAGE_SIZE)
+            throw new IllegalArgumentException("Image is to big");
+        this.setBase64(Base64.getEncoder().encodeToString(file.getBytes()));
     }
 
     @Nonnull
-    private InputStream inputStream;
-    private long size;
-    @Nonnull
-    private String name;
-    @Nonnull
-    private String contentType;
+    private String base64;
 }

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,10 +37,5 @@ public class NoticesControllers {
     public String deleteNotice(@PathVariable(name = "id") Integer id){
         service.deleteNotice(id);
         return "redirect:/";
-    }
-
-    @GetMapping("/image/{name}")
-    public InputStream image(@PathVariable("name") String name){
-        return service.getPictureByName(name);
     }
 }

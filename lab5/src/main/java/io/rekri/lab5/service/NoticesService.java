@@ -10,8 +10,6 @@ import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 @Service
@@ -20,7 +18,6 @@ public class NoticesService {
 
     final private NoticesRepository noticesRepository;
     final private UsersRepository usersRepository;
-    final private ImagesService imagesService;
 
     public List<NoticeResponse> getAllNotices() {
         return noticesRepository.findAll().stream()
@@ -34,26 +31,17 @@ public class NoticesService {
                 .toList();
     }
 
-    public void createNotice(final Notice notice, @Nullable final Picture picture, final String author)
-            throws IOException {
-        if (picture!=null)
-            imagesService.save(picture);
-
+    public void createNotice(final Notice notice, @Nullable final Picture picture, final String author){
         noticesRepository.save(new Notices.Builder()
                 .content(notice.getContent())
                 .head(notice.getHeader())
-                .picture(picture != null ? picture.getName() : null)
+                .picture(picture != null ? picture.getBase64() : null)
                 .author(usersRepository.findByName(author).orElseThrow())
                 .build());
     }
 
     public void deleteNotice(final Integer id){
-        final var notice = noticesRepository.findById(id).orElseThrow();
-        imagesService.delete(notice.getPicture());
-        noticesRepository.delete(notice);
+        noticesRepository.deleteById(id);
     }
 
-    public InputStream getPictureByName(final String name) {
-        return imagesService.get(name);
-    }
 }
