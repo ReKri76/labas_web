@@ -38,10 +38,8 @@ public class GlobalErrorController implements ErrorController {
             } catch (NumberFormatException ignored) {}
         }
 
-
         String message = (String) errors.get("message");
         String error = (String) errors.get("error");
-
 
         model.addAttribute("status", statusCode);
         model.addAttribute("error", error);

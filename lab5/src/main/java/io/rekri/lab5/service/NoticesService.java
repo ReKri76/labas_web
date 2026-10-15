@@ -10,6 +10,9 @@ import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 @Service
@@ -45,7 +48,14 @@ public class NoticesService {
     }
 
     public int countOfView(){
-        return 1;
+        try {
+            final var path = Path.of("countOfView");
+            final var val = Integer.parseInt(Files.readString(path).trim()) + 1;
+            Files.writeString(path, String.valueOf(val));
+            return val;
+        }
+        catch (IOException e){
+            throw new RuntimeException(e.getMessage());
+        }
     }
-
 }

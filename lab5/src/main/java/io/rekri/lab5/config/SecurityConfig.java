@@ -31,12 +31,12 @@ public class SecurityConfig {
                 http
                         .authorizeHttpRequests(auth -> auth
                                 .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR, DispatcherType.INCLUDE).permitAll()
-                                .requestMatchers("/", "/login", "/register", "/css/**", "/js/**", "/error").permitAll()
+                                .requestMatchers("/", "/login", "/register", "/error").permitAll()
                                 .requestMatchers("/users/**").hasAuthority(Roles.ROLE_ADMIN.toString())
                                 .requestMatchers(HttpMethod.GET, "/cabinet").authenticated()
                                 .requestMatchers(HttpMethod.POST).authenticated()
-                                .requestMatchers(HttpMethod.POST, "/delete-notice/**")
-                                .hasAnyAuthority(Roles.ROLE_ADMIN.toString(), Roles.ROLE_MODERATOR.toString())
+                                .requestMatchers(HttpMethod.DELETE).hasAnyAuthority(Roles.ROLE_ADMIN.toString(),
+                                        Roles.ROLE_MODERATOR.toString())
                                 .anyRequest().denyAll()
                         )
                         .formLogin(form -> form
