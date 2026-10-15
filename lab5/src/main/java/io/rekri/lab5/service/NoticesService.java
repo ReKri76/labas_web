@@ -44,4 +44,8 @@ public class NoticesService {
         noticesRepository.deleteById(id);
     }
 
+    public int countOfView(){
+        return 1;
+    }
+
 }

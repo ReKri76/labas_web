@@ -14,7 +14,7 @@ public class Picture {
 
     public Picture(@Nonnull MultipartFile file) throws IOException, IllegalArgumentException{
         if (file.isEmpty() || file.getSize() > MAX_IMAGE_SIZE)
-            throw new IllegalArgumentException("Image is to big");
+            throw new IllegalArgumentException("Incorrect picture");
         this.setBase64(Base64.getEncoder().encodeToString(file.getBytes()));
     }
 
