@@ -35,8 +35,7 @@ public class SecurityConfig {
                                 .requestMatchers("/users/**").hasAuthority(Roles.ROLE_ADMIN.toString())
                                 .requestMatchers(HttpMethod.GET, "/cabinet").authenticated()
                                 .requestMatchers(HttpMethod.POST).authenticated()
-                                .requestMatchers(HttpMethod.DELETE).hasAnyAuthority(Roles.ROLE_ADMIN.toString(),
-                                        Roles.ROLE_MODERATOR.toString())
+                                .requestMatchers(HttpMethod.DELETE, "/delete-notice/**").authenticated()
                                 .anyRequest().denyAll()
                         )
                         .formLogin(form -> form

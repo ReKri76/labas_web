@@ -14,12 +14,22 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.util.Map;
 
+/**
+ * Формирует страницу ошибки с HTTP-статусом и сообщением для пользователя.
+ */
 @Controller
 @RequiredArgsConstructor
 public class GlobalErrorController implements ErrorController {
 
     private final ErrorAttributes errorAttributes;
 
+    /**
+     * Обрабатывает запросы к маршруту ошибки и подготавливает данные для страницы ошибки.
+     *
+     * @param request HTTP-запрос, содержащий сведения об исходной ошибке
+     * @param model модель данных для представления
+     * @return имя представления страницы ошибки
+     */
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request, Model model) {
 
