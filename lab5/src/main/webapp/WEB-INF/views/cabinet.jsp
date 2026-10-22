@@ -62,6 +62,28 @@
                 </div>
             </div>
         </div>
+
+        <sec:authorize access="hasAnyAuthority('ROLE_ADMIN','ROLE_MODERATOR')">
+            <div class="col-md-8 ms-md-auto">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Опубликовать новость</h5>
+                        <form action="<c:url value='/create-news'/>" method="post">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <div class="mb-3">
+                                <label for="news-head" class="form-label">Заголовок</label>
+                                <input type="text" class="form-control" id="news-head" name="head" maxlength="255">
+                            </div>
+                            <div class="mb-3">
+                                <label for="news-content" class="form-label">Текст</label>
+                                <textarea class="form-control" id="news-content" name="content" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Опубликовать новость</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </sec:authorize>
     </div>
 
     <section class="mt-5" aria-labelledby="my-notices-heading">

@@ -34,6 +34,8 @@ public class SecurityConfig {
                                 .requestMatchers("/", "/login", "/register", "/error").permitAll()
                                 .requestMatchers("/users/**").hasAuthority(Roles.ROLE_ADMIN.toString())
                                 .requestMatchers(HttpMethod.GET, "/cabinet").authenticated()
+                                .requestMatchers(HttpMethod.POST, "/create-news").hasAnyAuthority(
+                                        Roles.ROLE_ADMIN.toString(), Roles.ROLE_MODERATOR.toString())
                                 .requestMatchers(HttpMethod.POST).authenticated()
                                 .requestMatchers(HttpMethod.DELETE, "/delete-notice/**").authenticated()
                                 .anyRequest().denyAll()

@@ -11,6 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * Сервис для получения и публикации новостей.
+ */
 @Service
 @RequiredArgsConstructor
 public class NewsService {
@@ -18,6 +21,11 @@ public class NewsService {
     private final NewsRepository newsRepository;
     private final UsersRepository usersRepository;
 
+    /**
+     * Возвращает новости для отображения на главной странице.
+     *
+     * @return список новостей, отсортированный от новых к старым
+     */
     @Transactional(readOnly = true)
     public List<NewsResponse> getAllNews() {
         return newsRepository.findAllByOrderByCreatedAtDescIdDesc().stream()
@@ -31,6 +39,13 @@ public class NewsService {
                 .toList();
     }
 
+    /**
+     * Публикует новость от имени указанного пользователя.
+     *
+     * @param request заголовок и текст публикуемой новости
+     * @param authorName имя пользователя, публикующего новость
+     * @throws java.util.NoSuchElementException если пользователь не найден
+     */
     public void createNews(final NewsRequest request, final String authorName) {
         final var news = new News();
         news.setHead(request.getHead());
